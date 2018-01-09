@@ -1,0 +1,6 @@
+[package]
+name = "mode_recognizer"
+version = "0.1.0"
+authors = ["Luca Aquino <luca-aquino@owndays.co.jp>"]
+
+[dependencies]
