@@ -4,11 +4,12 @@ pub mod note;
 use self::interval::Interval as Interval;
 use self::note::Note as Note;
 
-pub struct Mode {
+pub struct Mode<'a> {
+	pub name: &'a str,
     pub intervals: [Interval; 7],
 }
 
-impl Mode {
+impl<'a> Mode<'a> {
     pub fn build_scale(&self, root: &str) -> Vec<Option<Note>> {
 		note::NOTE_SCALE.iter()
 			.position(|note| note.equals(root))
@@ -38,86 +39,89 @@ impl Mode {
     }
 }
 
-pub const IONIAN: Mode = Mode {
-	intervals: [
-		Interval::WHOLE,
-		Interval::WHOLE,
-		Interval::HALF,
-		Interval::WHOLE,
-		Interval::WHOLE,
-		Interval::WHOLE,
-		Interval::HALF,
-	]
-};
-
-pub const DORIAN: Mode = Mode {
-	intervals: [
-		Interval::WHOLE,
-		Interval::HALF,
-		Interval::WHOLE,
-		Interval::WHOLE,
-		Interval::WHOLE,
-		Interval::HALF,
-		Interval::WHOLE,
-	]
-};
-
-pub const PHRYGIAN: Mode = Mode {
-	intervals: [
-		Interval::HALF,
-		Interval::WHOLE,
-		Interval::WHOLE,
-		Interval::WHOLE,
-		Interval::HALF,
-		Interval::WHOLE,
-		Interval::WHOLE,
-	]
-};
-
-pub const LYDIAN: Mode = Mode {
-	intervals: [
-		Interval::WHOLE,
-		Interval::WHOLE,
-		Interval::WHOLE,
-		Interval::HALF,
-		Interval::WHOLE,
-		Interval::WHOLE,
-		Interval::HALF,
-	]
-};
-
-pub const MIXOLYDIAN: Mode = Mode {
-	intervals: [
-		Interval::WHOLE,
-		Interval::WHOLE,
-		Interval::HALF,
-		Interval::WHOLE,
-		Interval::WHOLE,
-		Interval::HALF,
-		Interval::WHOLE,
-	]
-};
-
-pub const AEOLIAN: Mode = Mode {
-	intervals: [
-		Interval::WHOLE,
-		Interval::HALF,
-		Interval::WHOLE,
-		Interval::WHOLE,
-		Interval::HALF,
-		Interval::WHOLE,
-		Interval::WHOLE,
-	]
-};
-
-pub const LOCRIAN: Mode = Mode {
-	intervals: [
-		Interval::HALF,
-		Interval::WHOLE,
-		Interval::WHOLE,
-		Interval::HALF,
-		Interval::WHOLE,
-		Interval::WHOLE,
-		Interval::WHOLE,
-	]
-};
+pub const MODES: [Mode; 7] = [
+	Mode {
+		name: "Ionian",
+		intervals: [
+			Interval::WHOLE,
+			Interval::WHOLE,
+			Interval::HALF,
+			Interval::WHOLE,
+			Interval::WHOLE,
+			Interval::WHOLE,
+			Interval::HALF,
+		],
+	},
+	Mode {
+		name: "Dorian",
+		intervals: [
+			Interval::WHOLE,
+			Interval::HALF,
+			Interval::WHOLE,
+			Interval::WHOLE,
+			Interval::WHOLE,
+			Interval::HALF,
+			Interval::WHOLE,
+		],
+	},
+	Mode {
+		name: "Phrygian",
+		intervals: [
+			Interval::HALF,
+			Interval::WHOLE,
+			Interval::WHOLE,
+			Interval::WHOLE,
+			Interval::HALF,
+			Interval::WHOLE,
+			Interval::WHOLE,
+		],
+	},
+	Mode {
+		name: "Lydian",
+		intervals: [
+			Interval::WHOLE,
+			Interval::WHOLE,
+			Interval::WHOLE,
+			Interval::HALF,
+			Interval::WHOLE,
+			Interval::WHOLE,
+			Interval::HALF,
+		],
+	},
+	Mode {
+		name: "Mixolydian",
+		intervals: [
+			Interval::WHOLE,
+			Interval::WHOLE,
+			Interval::HALF,
+			Interval::WHOLE,
+			Interval::WHOLE,
+			Interval::HALF,
+			Interval::WHOLE,
+		],
+	},
+	Mode {
+		name: "Aeolian",
+		intervals: [
+			Interval::WHOLE,
+			Interval::HALF,
+			Interval::WHOLE,
+			Interval::WHOLE,
+			Interval::HALF,
+			Interval::WHOLE,
+			Interval::WHOLE,
+		],
+	},
+	Mode {
+		name: "Locrian",
+		intervals: [
+			Interval::HALF,
+			Interval::WHOLE,
+			Interval::WHOLE,
+			Interval::HALF,
+			Interval::WHOLE,
+			Interval::WHOLE,
+			Interval::WHOLE,
+		],
+	},
+];
