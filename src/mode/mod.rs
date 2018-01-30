@@ -17,12 +17,7 @@ impl<'a> Mode<'a> {
 				let mut scale: Vec<Option<Note>> = Vec::new();
 				let mut note_iterator = note::NOTE_SCALE.into_iter().cycle().skip(position);
 
-				// TODO check if lifetime is ok (works, but not very confident)
-				fn deep_clone<'a>(to_clone: Option<&'a Note>) -> Option<Note<'a>> {
-					to_clone.and_then( |note| Some(note.clone()) )
-				};
-
-				scale.push(deep_clone(note_iterator.next()));
+				scale.push(note_iterator.next().cloned());
 				for interval in &self.intervals {
 					let note = match interval {
 						&Interval::WHOLE => {
@@ -31,7 +26,7 @@ impl<'a> Mode<'a> {
 						},
 						_ => note_iterator.next(),
 					};
-					scale.push(deep_clone(note));
+					scale.push(note.cloned());
 				}
 
 				scale
