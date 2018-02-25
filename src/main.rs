@@ -20,9 +20,9 @@ fn main() {
 		.for_each(|scales: Vec<(String, Vec<Option<Note>>)>| {
 			scales.into_iter()
 				.filter(|scale| {
-					scale.1.iter().fold(false, |carry, note| match note {
-						&Some(x) => carry || inputs.iter().find(| input | input.to_string() == x.name).is_some(),
-						_ => true
+					scale.1.iter().fold(true, |carry, note| match note {
+						&Some(x) => carry && inputs.iter().find(| input | x.equals(input)).is_some(),
+						_ => carry
 					})
 				})
 				.for_each(print_scale);
@@ -32,7 +32,7 @@ fn main() {
 fn print_scale (scale: (String, Vec<Option<Note>>)) {
 	println!("{}", scale.0);
 	let notes = scale.1.iter().fold(String::from(""), |carry, note: &Option<Note>| match note {
-		&Some(x) => carry + " " + &x.name,
+		&Some(x) => format!("{0} {1}", carry, x),
 		_ => carry
 	});
 	println!("{}", notes);
